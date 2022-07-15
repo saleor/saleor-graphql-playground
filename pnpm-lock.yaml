@@ -7,6 +7,7 @@ specifiers:
   '@rollup/plugin-node-resolve': 13.3.0
   '@rollup/plugin-replace': 4.0.0
   '@rollup/plugin-typescript': 8.3.3
+  '@types/lz-string': 1.3.34
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
   '@web/dev-server': 0.1.32
@@ -14,6 +15,7 @@ specifiers:
   graphiql: 1.9.13
   graphiql-explorer: 0.9.0
   graphql: 16.5.0
+  lz-string: 1.4.4
   react: 18.2.0
   react-dom: 18.2.0
   rimraf: 3.0.2
@@ -29,6 +31,7 @@ dependencies:
   graphiql: registry.npmjs.org/graphiql/1.9.13_kyt43vmhvaczgpjxkzokyzdeb4
   graphiql-explorer: registry.npmjs.org/graphiql-explorer/0.9.0_phmus7xcbidy3raesi6r6zwaqe
   graphql: registry.npmjs.org/graphql/16.5.0
+  lz-string: registry.npmjs.org/lz-string/1.4.4
   react: registry.npmjs.org/react/18.2.0
   react-dom: registry.npmjs.org/react-dom/18.2.0_react@18.2.0
 
@@ -38,6 +41,7 @@ devDependencies:
   '@rollup/plugin-node-resolve': registry.npmjs.org/@rollup/plugin-node-resolve/13.3.0_rollup@2.77.0
   '@rollup/plugin-replace': registry.npmjs.org/@rollup/plugin-replace/4.0.0_rollup@2.77.0
   '@rollup/plugin-typescript': registry.npmjs.org/@rollup/plugin-typescript/8.3.3_55kiftncucr43pz4hskma6yi2q
+  '@types/lz-string': registry.npmjs.org/@types/lz-string/1.3.34
   '@types/react': registry.npmjs.org/@types/react/18.0.15
   '@types/react-dom': registry.npmjs.org/@types/react-dom/18.0.6
   '@web/dev-server': registry.npmjs.org/@web/dev-server/0.1.32
@@ -457,6 +461,12 @@ packages:
       '@types/keygrip': registry.npmjs.org/@types/keygrip/1.0.2
       '@types/koa-compose': registry.npmjs.org/@types/koa-compose/3.2.5
       '@types/node': registry.npmjs.org/@types/node/18.0.4
+    dev: true
+
+  registry.npmjs.org/@types/lz-string/1.3.34:
+    resolution: {integrity: sha512-j6G1e8DULJx3ONf6NdR5JiR2ZY3K3PaaqiEuKYkLQO0Czfi1AzrtjfnfCROyWGeDd5IVMKCwsgSmMip9OWijow==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/lz-string/-/lz-string-1.3.34.tgz}
+    name: '@types/lz-string'
+    version: 1.3.34
     dev: true
 
   registry.npmjs.org/@types/mime/1.3.2:
@@ -1695,6 +1705,13 @@ packages:
     dependencies:
       yallist: registry.npmjs.org/yallist/4.0.0
     dev: true
+
+  registry.npmjs.org/lz-string/1.4.4:
+    resolution: {integrity: sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/lz-string/-/lz-string-1.4.4.tgz}
+    name: lz-string
+    version: 1.4.4
+    hasBin: true
+    dev: false
 
   registry.npmjs.org/magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/magic-string/-/magic-string-0.25.9.tgz}

@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { createGraphiQLFetcher } from "@graphiql/toolkit";
 import { GraphiQL } from "graphiql";
 import GraphiQLExplorer from "graphiql-explorer";
+import LzString from "lz-string";
 import "graphiql/graphiql.css";
 import {
   GraphQLSchema,
@@ -11,7 +12,7 @@ import {
 } from "graphql";
 import { useEvent } from "./useEvent";
 
-export const Root = () => {
+const useFetcher = () => {
   const fetcher = useMemo(
     () =>
       createGraphiQLFetcher({
@@ -20,16 +21,8 @@ export const Root = () => {
     []
   );
 
+  const [isLoading, setIsLoading] = useState(true);
   const [schema, setSchema] = useState<GraphQLSchema | null>(null);
-  const [query, setQuery] = useState(``);
-  const [explorerIsOpen, setExplorerIsOpen] = useState(true);
-
-  const handleEditQuery = useEvent((query?: string) => setQuery(query || ""));
-  const handleToggleExplorer = useEvent(() =>
-    setExplorerIsOpen((open) => !open)
-  );
-
-  const graphiqlRef = useRef<GraphiQL | null>(null);
 
   useEffect(() => {
     const maybePromise = fetcher(
@@ -45,13 +38,58 @@ export const Root = () => {
           setSchema(
             buildClientSchema(result.data as unknown as IntrospectionQuery)
           );
+          setIsLoading(false);
         }
       });
     }
   }, [fetcher]);
 
+  return { fetcher, schema, setSchema, isLoading };
+};
+
+const saveToUrl = (query: string) => {
+  const queryToSaveInUrl = LzString.compressToEncodedURIComponent(query);
+  window.location.hash = `saleor/${queryToSaveInUrl}`;
+};
+const readFromUrl = () => {
+  const queryFromUrl = window.location.hash.replace(/^#saleor\//, "");
+  const query = LzString.decompressFromEncodedURIComponent(queryFromUrl);
+  return query;
+};
+
+const useGraphQLEditorContent = () => {
+  const [query, setQuery] = useState(readFromUrl());
+
+  const setQueryProxy = useCallback((newQuery: string) => {
+    if (newQuery === query) {
+      return;
+    }
+
+    saveToUrl(newQuery);
+    setQuery(newQuery);
+  }, []);
+
+  return [query, setQueryProxy] as const;
+};
+
+export const Root = () => {
+  const { fetcher, schema, setSchema, isLoading } = useFetcher();
+
+  const [query, setQuery] = useGraphQLEditorContent();
+  const [explorerIsOpen, setExplorerIsOpen] = useState(true);
+
+  const handleEditQuery = useEvent((query?: string) => {
+    setQuery(query || "");
+  });
+  const handleToggleExplorer = useEvent(() =>
+    setExplorerIsOpen((open) => !open)
+  );
+
   return (
-    <div className="graphiql-container">
+    <div
+      className="graphiql-container"
+      style={{ opacity: isLoading ? 0.3 : 1 }}
+    >
       <GraphiQLExplorer
         schema={schema}
         query={query}
@@ -60,7 +98,6 @@ export const Root = () => {
         onToggleExplorer={handleToggleExplorer}
       />
       <GraphiQL
-        ref={graphiqlRef}
         fetcher={fetcher}
         schema={schema}
         query={query}
@@ -74,7 +111,7 @@ export const Root = () => {
             />
           ),
         }}
-      ></GraphiQL>
+      />
     </div>
   );
 };
