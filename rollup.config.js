@@ -7,6 +7,7 @@ import json from "@rollup/plugin-json";
 import external from "rollup-plugin-peer-deps-external";
 import dts from "rollup-plugin-dts";
 import replace from "@rollup/plugin-replace";
+import css from "rollup-plugin-import-css";
 
 const packageJson = require("./package.json");
 
@@ -39,6 +40,7 @@ export default [
       typescript({ tsconfig: "./tsconfig.json" }),
       // terser(),
       json(),
+      css(),
     ],
     inlineDynamicImports: true,
   },
