@@ -43,7 +43,8 @@ export default [
       // terser(),
       json(),
       css(),
-      serve({ contentBase: "", verbose: true, open: false }),
+      process.env.ROLLUP_WATCH &&
+        serve({ contentBase: "", verbose: true, open: false }),
     ],
     inlineDynamicImports: true,
   },
