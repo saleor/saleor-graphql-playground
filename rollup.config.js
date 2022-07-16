@@ -7,8 +7,8 @@ import json from "@rollup/plugin-json";
 import external from "rollup-plugin-peer-deps-external";
 import dts from "rollup-plugin-dts";
 import replace from "@rollup/plugin-replace";
-import css from "rollup-plugin-import-css";
 import serve from "rollup-plugin-serve";
+import postcss from "rollup-plugin-postcss";
 
 const packageJson = require("./package.json");
 
@@ -42,7 +42,10 @@ export default [
       typescript({ tsconfig: "./tsconfig.json" }),
       // terser(),
       json(),
-      css(),
+      postcss({
+        extract: true,
+        plugins: [require("tailwindcss")(), require("autoprefixer")()],
+      }),
       process.env.ROLLUP_WATCH &&
         serve({ contentBase: "", verbose: true, open: false }),
     ],

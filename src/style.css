@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  @apply h-screen m-0 p-0 overflow-x-hidden;
+}
+
+.graphiql-container {
+  @apply h-screen w-screen;
+}
+
+.graphiql-container .topBarWrap {
+  @apply items-center border-b-gray-200 border-b h-12;
+}
+
+.graphiql-container .topBar {
+  @apply bg-none h-auto border-none;
+}
+
+.graphiql-container .toolbar-button {
+  background: none;
+  @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+}
+
+.graphiql-container .execute-button {
+  background: none;
+  @apply w-10 h-10 -mt-1 inline-flex items-center justify-center pt-0.5 fill-white border border-transparent rounded-full shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+}
+
+.graphiql-container .docExplorerShow {
+  background: none;
+  border-left: 1px solid rgb(209 213 219 / var(--tw-border-opacity));
+  border-top: 1px solid rgb(209 213 219 / var(--tw-border-opacity));
+  border-right: 1px solid rgb(209 213 219 / var(--tw-border-opacity));
+  border-bottom: 1px solid rgb(209 213 219 / var(--tw-border-opacity));
+  @apply inline-flex items-center px-4 py-2 mr-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+}
+
+.graphiql-container .doc-explorer-title-bar,
+.graphiql-container .history-title-bar {
+  @apply h-12 border-b-gray-200 border-b p-0 flex items-center;
+}
+
+.graphiql-container .doc-explorer-contents,
+.graphiql-container .history-contents {
+  @apply border-none;
+}
+
+.graphiql-container .doc-explorer-title,
+.graphiql-container .history-title {
+  @apply p-0;
+}
+
+.graphiql-container .docExplorerHide {
+  @apply w-12 -ml-12 py-4 text-center m-0;
+}
+
+.graphiql-container .doc-explorer-contents,
+.graphiql-container .history-contents {
+  @apply top-12;
+}
+
+.graphiql-container .CodeMirror,
+.graphiql-explorer-root {
+  font-family: "Fira Code", "Fira Mono", "Consolas", "Inconsolata",
+    "Droid Sans Mono", "Monaco", monospace !important;
+  font-size: 14px !important;
+}
+
+.graphiql-explorer-root {
+  @apply !pb-0;
+}
+
+.graphiql-explorer-root .graphiql-explorer-node,
+.graphiql-container .CodeMirror pre {
+  @apply !leading-normal;
+}
+
+.graphiql-explorer-root .graphiql-explorer-node svg {
+  @apply !ml-0;
+}
+
+.graphiql-explorer-root .graphiql-explorer-node .graphiql-explorer-field-view {
+  @apply !ml-1;
+}

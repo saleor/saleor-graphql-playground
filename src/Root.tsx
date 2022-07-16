@@ -1,4 +1,16 @@
 import "graphiql/graphiql.css";
+
+// import "graphiql/src/css/app.css";
+// import "graphiql/src/css/codemirror.css";
+// import "graphiql/src/css/foldgutter.css";
+// import "graphiql/src/css/info.css";
+// import "graphiql/src/css/jump.css";
+// import "graphiql/src/css/lint.css";
+// import "graphiql/src/css/loading.css";
+// import "graphiql/src/css/show-hint.css";
+// import "graphiql/src/css/doc-explorer.css";
+// import "graphiql/src/css/history.css";
+
 import "./style.css";
 
 import { GraphiQL } from "graphiql";

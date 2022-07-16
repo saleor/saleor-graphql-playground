@@ -4,5 +4,6 @@
     "project": "tsconfig.json"
   },
   "plugins": ["@typeofweb"],
-  "extends": ["plugin:@typeofweb/recommended"]
+  "extends": ["plugin:@typeofweb/recommended"],
+  "ignorePatterns": "*.js"
 }
