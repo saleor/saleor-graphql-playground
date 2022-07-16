@@ -8,6 +8,7 @@ import external from "rollup-plugin-peer-deps-external";
 import dts from "rollup-plugin-dts";
 import replace from "@rollup/plugin-replace";
 import css from "rollup-plugin-import-css";
+import serve from "rollup-plugin-serve";
 
 const packageJson = require("./package.json");
 
@@ -29,7 +30,8 @@ export default [
     external: [],
     plugins: [
       replace({
-        "process.env.NODE_ENV": JSON.stringify("production"),
+        preventAssignment: true,
+        values: { "process.env.NODE_ENV": JSON.stringify("production") },
       }),
       external(),
       resolve({
@@ -41,6 +43,7 @@ export default [
       // terser(),
       json(),
       css(),
+      serve({ contentBase: "", verbose: true, open: false }),
     ],
     inlineDynamicImports: true,
   },
