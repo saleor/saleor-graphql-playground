@@ -1,6 +1,6 @@
 import { useRef, useLayoutEffect, useCallback } from "react";
 
-export function useEvent<Args extends unknown[], Ret>(
+export function useEvent<Args extends readonly unknown[], Ret>(
   handler: (...args: Args) => Ret
 ) {
   const handlerRef = useRef<null | ((...args: Args) => Ret)>(null);

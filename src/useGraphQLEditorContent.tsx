@@ -1,13 +1,15 @@
 import LzString from "lz-string";
 import { useState } from "react";
+
 import { useEvent } from "./useEvent";
+import { removeEmptyValues } from "./utils";
 
 type EditorContent = Record<keyof typeof longKeysToShortKeys, string>;
-type UseGraphQLEditorContentResult = EditorContent & {
-  [K in keyof EditorContent as `set${Capitalize<K>}`]: (
-    newValue?: string | undefined
-  ) => void | undefined;
-};
+type UseGraphQLEditorContentResult = EditorContent &
+  Record<
+    `set${Capitalize<keyof EditorContent>}`,
+    (newValue?: string | undefined) => void | undefined
+  >;
 type SavedEditorContent = Record<
   typeof longKeysToShortKeys[keyof typeof longKeysToShortKeys],
   string
@@ -30,6 +32,7 @@ export const saveToUrl = (editorContent: SavedEditorContent) => {
 
   window.location.hash = `saleor/${editorContentToSaveInUrl}`;
 };
+
 const readFromUrl = (): SavedEditorContent => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
   const editorContent = JSON.parse(
@@ -78,9 +81,3 @@ export const useGraphQLEditorContent = (): UseGraphQLEditorContentResult => {
     setVariables,
   };
 };
-
-function removeEmptyValues<T extends object>(editorContent: T): Partial<T> {
-  return Object.fromEntries(
-    Object.entries(editorContent).filter(([, val]) => !!val)
-  ) as Partial<T>;
-}

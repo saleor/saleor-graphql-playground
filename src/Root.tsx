@@ -1,8 +1,10 @@
-import { useState } from "react";
+import "graphiql/graphiql.css";
+import "./style.css";
+
 import { GraphiQL } from "graphiql";
 import GraphiQLExplorer from "graphiql-explorer";
+import { useState } from "react";
 
-import "graphiql/graphiql.css";
 import { useEvent } from "./useEvent";
 import { useFetcher } from "./useFetcher";
 import { useGraphQLEditorContent } from "./useGraphQLEditorContent";
@@ -37,6 +39,7 @@ export const Root = () => {
         onEdit={handleEditQuery}
         explorerIsOpen={explorerIsOpen}
         onToggleExplorer={handleToggleExplorer}
+        showAttribution={false}
       />
       <GraphiQL
         fetcher={fetcher}

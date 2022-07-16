@@ -32,6 +32,7 @@
     "declarationDir": "types",
     "outDir": "dist",
 
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types", "types"]
   }
 }
