@@ -21,8 +21,8 @@ import { useEvent } from "./useEvent";
 import { useFetcher } from "./useFetcher";
 import { useGraphQLEditorContent } from "./useGraphQLEditorContent";
 
-export const Root = () => {
-  const { fetcher, schema, setSchema: _, isLoading } = useFetcher();
+export const Root = ({ url }: { readonly url: string }) => {
+  const { fetcher, schema, setSchema: _, isLoading } = useFetcher(url);
 
   const {
     query,
@@ -36,15 +36,10 @@ export const Root = () => {
   } = useGraphQLEditorContent();
   const [explorerIsOpen, setExplorerIsOpen] = useState(true);
 
-  const handleToggleExplorer = useEvent(() =>
-    setExplorerIsOpen((open) => !open)
-  );
+  const handleToggleExplorer = useEvent(() => setExplorerIsOpen((open) => !open));
 
   return (
-    <div
-      className="graphiql-container"
-      style={{ opacity: isLoading ? 0.3 : 1 }}
-    >
+    <div className="graphiql-container" style={{ opacity: isLoading ? 0.3 : 1 }}>
       <GraphiQLExplorer
         schema={schema}
         query={query}

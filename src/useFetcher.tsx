@@ -3,17 +3,13 @@ import { getIntrospectionQuery, buildClientSchema } from "graphql";
 import { useMemo, useState, useEffect } from "react";
 import Invariant from "ts-invariant";
 
-import type {
-  GraphQLSchema,
-  IntrospectionQuery,
-  ExecutionResult,
-} from "graphql";
+import type { GraphQLSchema, IntrospectionQuery, ExecutionResult } from "graphql";
 
-export const useFetcher = () => {
+export const useFetcher = (url: string) => {
   const fetcher = useMemo(
     () =>
       createGraphiQLFetcher({
-        url: `https://typeofweb.eu.saleor.cloud/graphql/`,
+        url,
       }),
     []
   );
@@ -32,10 +28,7 @@ export const useFetcher = () => {
       );
 
       console.log(fetcherResult);
-      Invariant(
-        isExecutionResult(fetcherResult),
-        `Unsupported data type returned from fetcher.`
-      );
+      Invariant(isExecutionResult(fetcherResult), `Unsupported data type returned from fetcher.`);
       Invariant(
         isIntrospectionQuery(fetcherResult.data),
         `Invalid IntrospectionQuery returned by fetcher.`

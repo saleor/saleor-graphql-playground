@@ -4,12 +4,19 @@ import Invariant from "ts-invariant";
 
 import { Root } from "./Root";
 
-const el = document.getElementById("root");
+declare global {
+  function createPlayground(selector: string, url: string): void;
+}
 
-Invariant(el, `Missing #root element!`);
+export const createPlayground = (selector: string, url: string) => {
+  const el = document.querySelector(selector);
 
-createRoot(el).render(
-  <StrictMode>
-    <Root />
-  </StrictMode>
-);
+  Invariant(el, `Missing ${selector} element!`);
+
+  createRoot(el).render(
+    <StrictMode>
+      <Root url={url} />
+    </StrictMode>
+  );
+};
+globalThis.createPlayground = createPlayground;
