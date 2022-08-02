@@ -14,7 +14,9 @@
   "homepage": "https://github.com/saleor/saleor-graphql-playground#readme",
   "scripts": {
     "dev": "rimraf dist && rollup -c -w",
-    "build": "rimraf dist && NODE_ENV=production rollup -c"
+    "build": "rimraf dist && NODE_ENV=production rollup -c",
+    "release": "release-it --npm.pnpm",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "22.0.1",
@@ -28,7 +30,10 @@
     "@types/react-dom": "18.0.6",
     "autoprefixer": "10.4.7",
     "eslint": "8.19.0",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.3",
     "postcss": "8.4.14",
+    "prettier": "2.7.1",
     "release-it": "15.2.0",
     "rimraf": "3.0.2",
     "rollup": "2.77.0",
