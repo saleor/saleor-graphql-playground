@@ -7,6 +7,11 @@
   "browser": "dist/umd/index.js",
   "unpkg": "dist/umd/index.js",
   "types": "./dist/index.d.ts",
+  "license": "BSD-3-Clause",
+  "files": [
+    "dist/**",
+    "LICENSE"
+  ],
   "repository": "git://github.com/saleor/saleor-graphql-playground",
   "bugs": {
     "url": "https://github.com/saleor/saleor-graphql-playground/issues"
