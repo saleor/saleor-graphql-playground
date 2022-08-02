@@ -64,6 +64,7 @@ export const Root = () => {
         onEditHeaders={handleEditHeaders}
         onEditOperationName={handleEditOperationName}
         onEditVariables={handleEditVariables}
+        tabs={true}
         toolbar={{
           additionalContent: (
             <GraphiQL.Button

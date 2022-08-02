@@ -29,6 +29,7 @@
     "autoprefixer": "10.4.7",
     "eslint": "8.19.0",
     "postcss": "8.4.14",
+    "release-it": "15.2.0",
     "rimraf": "3.0.2",
     "rollup": "2.77.0",
     "rollup-plugin-dts": "4.2.2",

@@ -12,26 +12,28 @@ import postcss from "rollup-plugin-postcss";
 
 const packageJson = require("./package.json");
 
+const isProd = process.env.NODE_ENV === "production";
 export default [
   {
     input: "src/index.tsx",
     output: [
       {
-        file: packageJson.main,
-        format: "cjs",
-        sourcemap: true,
-      },
-      {
         file: packageJson.module,
         format: "esm",
         sourcemap: true,
       },
-      {
+      isProd && {
+        file: packageJson.main,
+        format: "cjs",
+        sourcemap: true,
+      },
+
+      isProd && {
         file: packageJson.browser,
         format: "umd",
         sourcemap: true,
       },
-    ],
+    ].filter((x) => x),
     external: [],
     plugins: [
       replace({
@@ -45,7 +47,7 @@ export default [
       }),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
-      process.env.NODE_ENV === "production" && terser(),
+      isProd && terser(),
       json(),
       postcss({
         extract: true,
