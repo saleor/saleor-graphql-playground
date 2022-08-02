@@ -26,6 +26,11 @@ export default [
         format: "esm",
         sourcemap: true,
       },
+      {
+        file: packageJson.browser,
+        format: "umd",
+        sourcemap: true,
+      },
     ],
     external: [],
     plugins: [
@@ -40,7 +45,7 @@ export default [
       }),
       commonjs(),
       typescript({ tsconfig: "./tsconfig.json" }),
-      // terser(),
+      process.env.NODE_ENV === "production" && terser(),
       json(),
       postcss({
         extract: true,
@@ -48,7 +53,7 @@ export default [
       }),
       process.env.ROLLUP_WATCH &&
         serve({ contentBase: "", verbose: true, open: false }),
-    ],
+    ].filter((x) => x),
     inlineDynamicImports: true,
   },
   {
