@@ -1,7 +1,10 @@
 {
   "name": "@saleor/graphql-playground",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "browser": "dist/umd/index.js",
