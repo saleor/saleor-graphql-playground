@@ -32,6 +32,7 @@ export default [
         file: packageJson.browser,
         format: "umd",
         sourcemap: true,
+        name: "SaleorGraphqlPlayground",
       },
     ].filter((x) => x),
     external: [],
@@ -53,8 +54,7 @@ export default [
         extract: true,
         plugins: [require("tailwindcss")(), require("autoprefixer")()],
       }),
-      process.env.ROLLUP_WATCH &&
-        serve({ contentBase: "", verbose: true, open: false }),
+      process.env.ROLLUP_WATCH && serve({ contentBase: "", verbose: true, open: false }),
     ].filter((x) => x),
     inlineDynamicImports: true,
   },

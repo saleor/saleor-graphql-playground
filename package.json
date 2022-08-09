@@ -24,7 +24,8 @@
     "dev": "rimraf dist && rollup -c -w",
     "build": "rimraf dist && NODE_ENV=production rollup -c",
     "release": "release-it --npm.pnpm",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "22.0.1",
