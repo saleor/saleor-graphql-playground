@@ -21,7 +21,13 @@ import { useEvent } from "./useEvent";
 import { useFetcher } from "./useFetcher";
 import { useGraphQLEditorContent } from "./useGraphQLEditorContent";
 
-export const Root = ({ url }: { readonly url: string }) => {
+export const Root = ({
+  url,
+  defaultQuery,
+}: {
+  readonly url: string;
+  readonly defaultQuery?: string;
+}) => {
   const { fetcher, schema, setSchema: _, isLoading } = useFetcher(url);
 
   const {
@@ -33,7 +39,7 @@ export const Root = ({ url }: { readonly url: string }) => {
     setHeaders: handleEditHeaders,
     setOperationName: handleEditOperationName,
     setVariables: handleEditVariables,
-  } = useGraphQLEditorContent();
+  } = useGraphQLEditorContent(defaultQuery);
   const [explorerIsOpen, setExplorerIsOpen] = useState(true);
 
   const handleToggleExplorer = useEvent(() => setExplorerIsOpen((open) => !open));

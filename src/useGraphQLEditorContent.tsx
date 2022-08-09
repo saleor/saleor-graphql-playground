@@ -26,29 +26,27 @@ export const saveToUrl = (editorContent: SavedEditorContent) => {
   const stringifiedContent = JSON.stringify(removeEmptyValues(editorContent));
 
   const editorContentToSaveInUrl =
-    stringifiedContent === "{}"
-      ? ""
-      : LzString.compressToEncodedURIComponent(stringifiedContent);
+    stringifiedContent === "{}" ? "" : LzString.compressToEncodedURIComponent(stringifiedContent);
 
   window.location.hash = `saleor/${editorContentToSaveInUrl}`;
 };
 
-const readFromUrl = (): SavedEditorContent => {
+const readFromUrl = (defaultQuery = ""): SavedEditorContent => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
   const editorContent = JSON.parse(
     LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}"
   );
   return {
+    q: defaultQuery,
+    h: "",
+    v: "",
+    o: "",
     ...editorContent,
-    query: "",
-    headers: "",
-    operationName: "",
-    variables: "",
   };
 };
 
-export const useGraphQLEditorContent = (): UseGraphQLEditorContentResult => {
-  const [editorContent, setEditorContent] = useState(readFromUrl());
+export const useGraphQLEditorContent = (defaultQuery?: string): UseGraphQLEditorContentResult => {
+  const [editorContent, setEditorContent] = useState(readFromUrl(defaultQuery));
   const useSetEditorContentField = (fieldName: keyof SavedEditorContent) =>
     useEvent((newValue: string = "") => {
       setEditorContent((prevEditorContent) => {
@@ -63,12 +61,8 @@ export const useGraphQLEditorContent = (): UseGraphQLEditorContentResult => {
 
   const setQuery = useSetEditorContentField(longKeysToShortKeys["query"]);
   const setHeaders = useSetEditorContentField(longKeysToShortKeys["headers"]);
-  const setOperationName = useSetEditorContentField(
-    longKeysToShortKeys["operationName"]
-  );
-  const setVariables = useSetEditorContentField(
-    longKeysToShortKeys["variables"]
-  );
+  const setOperationName = useSetEditorContentField(longKeysToShortKeys["operationName"]);
+  const setVariables = useSetEditorContentField(longKeysToShortKeys["variables"]);
 
   return {
     query: editorContent[longKeysToShortKeys["query"]],

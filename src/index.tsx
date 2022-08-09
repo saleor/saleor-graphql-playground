@@ -1,21 +1,22 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import Invariant from "ts-invariant";
 
 import { Root } from "./Root";
 
 declare global {
-  function createPlayground(selector: string, url: string): void;
+  function createPlayground(
+    element: Element,
+    { query, endpoint }: { readonly query: string; readonly endpoint: string }
+  ): void;
 }
 
-export const createPlayground = (selector: string, url: string) => {
-  const el = document.querySelector(selector);
-
-  Invariant(el, `Missing ${selector} element!`);
-
-  createRoot(el).render(
+export const createPlayground = (
+  element: Element,
+  { query, endpoint }: { readonly query: string; readonly endpoint: string }
+) => {
+  createRoot(element).render(
     <StrictMode>
-      <Root url={url} />
+      <Root url={endpoint} defaultQuery={query} />
     </StrictMode>
   );
 };

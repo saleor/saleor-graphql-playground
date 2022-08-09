@@ -9,6 +9,7 @@ specifiers:
   '@rollup/plugin-typescript': 8.3.3
   '@typeofweb/eslint-plugin': 0.3.0
   '@types/lz-string': 1.3.34
+  '@types/node': '16'
   '@types/react': 18.0.15
   '@types/react-dom': 18.0.6
   autoprefixer: 10.4.7
@@ -37,8 +38,8 @@ specifiers:
   typescript: 4.7.4
 
 dependencies:
-  '@graphiql/toolkit': registry.npmjs.org/@graphiql/toolkit/0.6.0_nrmqddr6fropr2zq2g6vz5wafe
-  graphiql: registry.npmjs.org/graphiql/1.9.13_kyt43vmhvaczgpjxkzokyzdeb4
+  '@graphiql/toolkit': registry.npmjs.org/@graphiql/toolkit/0.6.0_qxdidtb5wax47vilussr7yzv4i
+  graphiql: registry.npmjs.org/graphiql/1.9.13_5vsuk75eoslvrqb7iiox7w7c5q
   graphiql-explorer: registry.npmjs.org/graphiql-explorer/0.9.0_phmus7xcbidy3raesi6r6zwaqe
   graphql: registry.npmjs.org/graphql/16.5.0
   lz-string: registry.npmjs.org/lz-string/1.4.4
@@ -54,6 +55,7 @@ devDependencies:
   '@rollup/plugin-typescript': registry.npmjs.org/@rollup/plugin-typescript/8.3.3_55kiftncucr43pz4hskma6yi2q
   '@typeofweb/eslint-plugin': registry.npmjs.org/@typeofweb/eslint-plugin/0.3.0_4x5o4skxv6sl53vpwefgt23khm
   '@types/lz-string': registry.npmjs.org/@types/lz-string/1.3.34
+  '@types/node': registry.npmjs.org/@types/node/16.11.47
   '@types/react': registry.npmjs.org/@types/react/18.0.15
   '@types/react-dom': registry.npmjs.org/@types/react-dom/18.0.6
   autoprefixer: registry.npmjs.org/autoprefixer/10.4.7_postcss@8.4.14
@@ -151,7 +153,7 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmjs.org/@graphiql/react/0.5.2_kyt43vmhvaczgpjxkzokyzdeb4:
+  registry.npmjs.org/@graphiql/react/0.5.2_5vsuk75eoslvrqb7iiox7w7c5q:
     resolution: {integrity: sha512-8rfyrFOrZaG/fWHE4nX7XApuiNCd89XatvdJSO1ndXDUz94W3Ob0DHKufWpxXJ7RtJUNat25K+zrLYUP+C2iQw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphiql/react/-/react-0.5.2.tgz}
     id: registry.npmjs.org/@graphiql/react/0.5.2
     name: '@graphiql/react'
@@ -161,7 +163,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@graphiql/toolkit': registry.npmjs.org/@graphiql/toolkit/0.6.0_nrmqddr6fropr2zq2g6vz5wafe
+      '@graphiql/toolkit': registry.npmjs.org/@graphiql/toolkit/0.6.0_qxdidtb5wax47vilussr7yzv4i
       codemirror: registry.npmjs.org/codemirror/5.65.6
       codemirror-graphql: registry.npmjs.org/codemirror-graphql/1.3.2_3mmvk4e5ujhziwqce4yh4iycum
       copy-to-clipboard: registry.npmjs.org/copy-to-clipboard/3.3.1
@@ -178,7 +180,7 @@ packages:
       - graphql-ws
     dev: false
 
-  registry.npmjs.org/@graphiql/toolkit/0.6.0_nrmqddr6fropr2zq2g6vz5wafe:
+  registry.npmjs.org/@graphiql/toolkit/0.6.0_qxdidtb5wax47vilussr7yzv4i:
     resolution: {integrity: sha512-mbAwbt4lw2bFp9QW3NLVmh/r/ymczlcqvXk1HfvuC7Ma4h0yzrJiQauJyh1/gF5kjqevcRSquvP/YQJSvh1u6w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@graphiql/toolkit/-/toolkit-0.6.0.tgz}
     id: registry.npmjs.org/@graphiql/toolkit/0.6.0
     name: '@graphiql/toolkit'
@@ -190,7 +192,7 @@ packages:
       '@n1ru4l/push-pull-async-iterable-iterator': registry.npmjs.org/@n1ru4l/push-pull-async-iterable-iterator/3.2.0
       graphql: registry.npmjs.org/graphql/16.5.0
       graphql-ws: registry.npmjs.org/graphql-ws/5.9.1_graphql@16.5.0
-      meros: registry.npmjs.org/meros/1.2.0
+      meros: registry.npmjs.org/meros/1.2.0_@types+node@16.11.47
     transitivePeerDependencies:
       - '@types/node'
     dev: false
@@ -709,6 +711,11 @@ packages:
     name: '@types/lz-string'
     version: 1.3.34
     dev: true
+
+  registry.npmjs.org/@types/node/16.11.47:
+    resolution: {integrity: sha512-fpP+jk2zJ4VW66+wAMFoBJlx1bxmBKx4DUFf68UHgdGCOuyUTDlLWqsaNPJh7xhNDykyJ9eIzAygilP/4WoN8g==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/node/-/node-16.11.47.tgz}
+    name: '@types/node'
+    version: 16.11.47
 
   registry.npmjs.org/@types/node/18.0.4:
     resolution: {integrity: sha512-M0+G6V0Y4YV8cqzHssZpaNCqvYwlCiulmm0PwpNLF55r/+cT8Ol42CHRU1SEaYFH2rTwiiE1aYg/2g2rrtGdPA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/@types/node/-/node-18.0.4.tgz}
@@ -3058,7 +3065,7 @@ packages:
       react-dom: registry.npmjs.org/react-dom/18.2.0_react@18.2.0
     dev: false
 
-  registry.npmjs.org/graphiql/1.9.13_kyt43vmhvaczgpjxkzokyzdeb4:
+  registry.npmjs.org/graphiql/1.9.13_5vsuk75eoslvrqb7iiox7w7c5q:
     resolution: {integrity: sha512-w/kFnK0N8ooN07vw5dKcDZ4CAmRfkjkTQbSj6LkEigJB/yTZ92r2QA/XROGlff0xn4r6aWfHjRp5AMrND4dLZg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/graphiql/-/graphiql-1.9.13.tgz}
     id: registry.npmjs.org/graphiql/1.9.13
     name: graphiql
@@ -3068,8 +3075,8 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      '@graphiql/react': registry.npmjs.org/@graphiql/react/0.5.2_kyt43vmhvaczgpjxkzokyzdeb4
-      '@graphiql/toolkit': registry.npmjs.org/@graphiql/toolkit/0.6.0_nrmqddr6fropr2zq2g6vz5wafe
+      '@graphiql/react': registry.npmjs.org/@graphiql/react/0.5.2_5vsuk75eoslvrqb7iiox7w7c5q
+      '@graphiql/toolkit': registry.npmjs.org/@graphiql/toolkit/0.6.0_qxdidtb5wax47vilussr7yzv4i
       entities: registry.npmjs.org/entities/2.2.0
       graphql: registry.npmjs.org/graphql/16.5.0
       graphql-language-service: registry.npmjs.org/graphql-language-service/5.0.6_graphql@16.5.0
@@ -4160,8 +4167,9 @@ packages:
     engines: {node: '>= 8'}
     dev: true
 
-  registry.npmjs.org/meros/1.2.0:
+  registry.npmjs.org/meros/1.2.0_@types+node@16.11.47:
     resolution: {integrity: sha512-3QRZIS707pZQnijHdhbttXRWwrHhZJ/gzolneoxKVz9N/xmsvY/7Ls8lpnI9gxbgxjcHsAVEW3mgwiZCo6kkJQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/meros/-/meros-1.2.0.tgz}
+    id: registry.npmjs.org/meros/1.2.0
     name: meros
     version: 1.2.0
     engines: {node: '>=12'}
@@ -4170,6 +4178,8 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
+    dependencies:
+      '@types/node': registry.npmjs.org/@types/node/16.11.47
     dev: false
 
   registry.npmjs.org/micromatch/4.0.5:
