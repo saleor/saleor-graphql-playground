@@ -10,6 +10,12 @@ export const useFetcher = (url: string) => {
     () =>
       createGraphiQLFetcher({
         url,
+        fetch(input, options) {
+          return fetch(input, {
+            ...options,
+            credentials: "include",
+          });
+        },
       }),
     []
   );
