@@ -28,9 +28,6 @@
     "prepare": "husky install",
     "prepublishOnly": "pnpm build"
   },
-  "resolutions": {
-    "eslint": "8.19.0"
-  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "22.0.1",
     "@rollup/plugin-json": "4.1.0",
@@ -43,7 +40,7 @@
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "10.4.7",
-    "eslint": "8.19.0",
+    "eslint": "7.32.0",
     "husky": "8.0.1",
     "lint-staged": "13.0.3",
     "postcss": "8.4.14",
