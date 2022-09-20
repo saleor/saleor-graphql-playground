@@ -28,6 +28,9 @@
     "prepare": "husky install",
     "prepublishOnly": "pnpm build"
   },
+  "resolutions": {
+    "eslint": "8.19.0"
+  },
   "devDependencies": {
     "@rollup/plugin-commonjs": "22.0.1",
     "@rollup/plugin-json": "4.1.0",
