@@ -33,7 +33,6 @@ export const useFetcher = (url: string) => {
         {}
       );
 
-      console.log(fetcherResult);
       Invariant(isExecutionResult(fetcherResult), `Unsupported data type returned from fetcher.`);
       Invariant(
         isIntrospectionQuery(fetcherResult.data),
