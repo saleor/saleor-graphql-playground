@@ -48,9 +48,16 @@ const readFromUrl = (defaultQuery = ""): EditorContent => {
     operationName: editorContent.o,
   };
 };
+const clearUrl = () => {
+  window.history.replaceState({}, "", window.location.origin);
+};
 
 export const useGraphQLEditorContent = (defaultQuery?: string): UseGraphQLEditorContentResult => {
-  const [editorContent, setEditorContent] = useState(readFromUrl(defaultQuery));
+  const [editorContent, setEditorContent] = useState(() => {
+    const content = readFromUrl(defaultQuery);
+    clearUrl();
+    return content;
+  });
   const useSetEditorContentField = (fieldName: keyof EditorContent) =>
     useEvent((newValue: string = "") => {
       setEditorContent((prevEditorContent) => {
