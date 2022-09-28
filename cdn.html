@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saleor GraphQL Playground Demo</title>
+    <meta
+      http-equiv="content-security-policy"
+      content="default-src 'none';
+      connect-src https://localhost:4000/ https://localhost:8080/ https://typeofweb.eu.saleor.cloud/graphql/;
+      script-src https://cdn.jsdelivr.net/npm/@saleor/graphql-playground@2.0.0-1/dist/umd/index.js 'sha256-BqK5R+xYeI6N82LyL/VNQyZrqy/uwVWkXVUCQaN+KEo=';
+      style-src https://cdn.jsdelivr.net/npm/@saleor/graphql-playground@2.0.0-1/dist/umd/index.css;
+      font-src 'self' data:;
+      "
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@saleor/graphql-playground@2.0.0-1/dist/umd/index.css"
+      integrity="sha512-ivOjBFuy6pAspvPNtIz/vpI8ZHAU4X2EDuRnqOWK64GwlRCwypdgbPuaGqMWt20Bg2KjcNk2Vq9kkl8+XgSb9g=="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div
+      id="root"
+      data-endpoint="https://typeofweb.eu.saleor.cloud/graphql/"
+      data-query='# Welcome to Saleor GraphQL API!
+#
+# Type queries into this side of the screen, and you will see
+# intelligent typeaheads aware of the current GraphQL type schema
+# and live syntax and validation errors highlighted within the text.
+#
+# Here is an example query to fetch a list of products:
+#
+{
+  products(first: 5, channel: "default-channel") {
+    edges {
+      node {
+        id
+        name
+        description
+      }
+    }
+  }
+}
+'
+    ></div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@saleor/graphql-playground@2.0.0-1/dist/umd/index.js"
+      integrity="sha512-B6kH9/APIGX3wVAgC18tnNd0DiSQknQrwiPVkeGVWHcZ7K8h0t1HoTVZlWq3JYUzCC+k4nWLN6Z1LLodoNLV/w=="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module">
+      const root = document.querySelector("#root");
+      const endpoint = root.dataset.endpoint;
+      const query = root.dataset.query;
+
+      createPlayground(root, { query, endpoint });
+    </script>
+  </body>
+</html>
