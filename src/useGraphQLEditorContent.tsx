@@ -4,13 +4,12 @@ import { useState } from "react";
 import { useEvent } from "./useEvent";
 import { removeEmptyValues } from "./utils";
 
-type EditorContent = Record<keyof typeof longKeysToShortKeys, string>;
-type UseGraphQLEditorContentResult = EditorContent &
-  Record<
-    `set${Capitalize<keyof EditorContent>}`,
-    (newValue?: string | undefined) => void | undefined
-  >;
-type SavedEditorContent = Record<
+export type EditorContent = Record<keyof typeof longKeysToShortKeys, string>;
+type UseGraphQLEditorContentResult = { editorContent: EditorContent } & Record<
+  `set${Capitalize<keyof EditorContent>}`,
+  (newValue?: string | undefined) => void | undefined
+>;
+type ShorterEditorContent = Record<
   typeof longKeysToShortKeys[keyof typeof longKeysToShortKeys],
   string
 >;
@@ -22,56 +21,57 @@ const longKeysToShortKeys = {
   variables: "v",
 } as const;
 
-export const saveToUrl = (editorContent: SavedEditorContent) => {
-  const stringifiedContent = JSON.stringify(removeEmptyValues(editorContent));
+export const editorContentToUrlFragment = (editorContent: EditorContent) => {
+  const shorterContent: ShorterEditorContent = {
+    q: editorContent.query,
+    h: editorContent.headers,
+    o: editorContent.operationName,
+    v: editorContent.variables,
+  };
+  const stringifiedContent = JSON.stringify(removeEmptyValues(shorterContent));
 
   const editorContentToSaveInUrl =
     stringifiedContent === "{}" ? "" : LzString.compressToEncodedURIComponent(stringifiedContent);
 
-  window.location.hash = `saleor/${editorContentToSaveInUrl}`;
+  return `saleor/${editorContentToSaveInUrl}`;
 };
 
-const readFromUrl = (defaultQuery = ""): SavedEditorContent => {
+const readFromUrl = (defaultQuery = ""): EditorContent => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
-  const editorContent = JSON.parse(
+  const editorContent: ShorterEditorContent = JSON.parse(
     LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}"
   );
   return {
-    q: defaultQuery,
-    h: "",
-    v: "",
-    o: "",
-    ...editorContent,
+    query: editorContent.q || defaultQuery,
+    headers: editorContent.h,
+    variables: editorContent.v,
+    operationName: editorContent.o,
   };
 };
 
 export const useGraphQLEditorContent = (defaultQuery?: string): UseGraphQLEditorContentResult => {
   const [editorContent, setEditorContent] = useState(readFromUrl(defaultQuery));
-  const useSetEditorContentField = (fieldName: keyof SavedEditorContent) =>
+  const useSetEditorContentField = (fieldName: keyof EditorContent) =>
     useEvent((newValue: string = "") => {
       setEditorContent((prevEditorContent) => {
         const newEditorContent = {
           ...prevEditorContent,
           [fieldName]: newValue,
         };
-        saveToUrl(newEditorContent);
         return newEditorContent;
       });
     });
 
-  const setQuery = useSetEditorContentField(longKeysToShortKeys["query"]);
-  const setHeaders = useSetEditorContentField(longKeysToShortKeys["headers"]);
-  const setOperationName = useSetEditorContentField(longKeysToShortKeys["operationName"]);
-  const setVariables = useSetEditorContentField(longKeysToShortKeys["variables"]);
+  const setQuery = useSetEditorContentField("query");
+  const setHeaders = useSetEditorContentField("headers");
+  const setOperationName = useSetEditorContentField("operationName");
+  const setVariables = useSetEditorContentField("variables");
 
   return {
-    query: editorContent[longKeysToShortKeys["query"]],
-    headers: editorContent[longKeysToShortKeys["headers"]],
-    operationName: editorContent[longKeysToShortKeys["operationName"]],
-    variables: editorContent[longKeysToShortKeys["variables"]],
     setQuery,
     setHeaders,
     setOperationName,
     setVariables,
+    editorContent,
   };
 };
