@@ -2,7 +2,6 @@ import "graphiql/graphiql.css";
 
 import "./style.css";
 
-import { DOC_EXPLORER_PLUGIN, HISTORY_PLUGIN } from "@graphiql/react";
 import { GraphiQL } from "graphiql";
 
 import { useFetcher } from "./useFetcher";
