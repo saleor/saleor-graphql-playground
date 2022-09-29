@@ -6,3 +6,27 @@ body,
   padding: 0;
   overflow-x: hidden;
 }
+
+.url-input {
+  margin: 0.5em 0;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: hsla(var(--color-neutral), calc(var(--alpha-background-light) / 2));
+  cursor: auto;
+}
+
+.checkbox-container {
+  margin: 0.5em 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 1.5em;
+  height: 1.5em;
+  margin-right: 0.5em;
+}
+
+.warning {
+  margin-left: 0.5em;
+}
