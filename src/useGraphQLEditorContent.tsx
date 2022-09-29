@@ -49,7 +49,9 @@ const readFromUrl = (defaultQuery = ""): EditorContent => {
   };
 };
 const clearUrl = () => {
-  window.history.replaceState({}, "", window.location.origin);
+  const url = new URL(window.location.toString());
+  url.hash = "";
+  window.history.replaceState({}, "", url.toString());
 };
 
 export const useGraphQLEditorContent = (defaultQuery?: string): UseGraphQLEditorContentResult => {

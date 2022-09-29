@@ -22,8 +22,8 @@ export const CopyPlaygroundDialog = ({
     ...editorContent,
     headers: includeHeaders ? editorContent.headers : "",
   };
-  const editorContentUrl =
-    window.location.origin + "/#" + editorContentToUrlFragment(editorContentToSave);
+  const editorContentUrl = new URL(window.location.toString());
+  editorContentUrl.hash = editorContentToUrlFragment(editorContentToSave);
 
   const copyToClipboard = useEvent(() => {
     if (!urlElRef.current) {
@@ -55,8 +55,7 @@ export const CopyPlaygroundDialog = ({
                 className="graphiql-button"
                 type="checkbox"
               />{" "}
-              also copy headers{" "}
-              <strong className="warning">⚠️ avoid sharing secrets.</strong>
+              also copy headers <strong className="warning">⚠️ avoid sharing secrets.</strong>
             </label>
           </div>
           <div className="graphiql-dialog-section-caption">
@@ -64,7 +63,7 @@ export const CopyPlaygroundDialog = ({
               aria-label="Playground URL"
               className="graphiql-button url-input"
               readOnly
-              value={editorContentUrl}
+              value={editorContentUrl.toString()}
               ref={urlElRef}
             />
           </div>

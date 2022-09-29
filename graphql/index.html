@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saleor GraphQL Playground Demo</title>
+
+    <link rel="stylesheet" href="../dist/esm/index.css" crossorigin="anonymous" />
+  </head>
+  <body>
+    <div
+      id="root"
+      data-endpoint="https://master.staging.saleor.cloud/graphql/"
+      data-query='# Welcome to Saleor GraphQL API!
+#
+# Type queries into this side of the screen, and you will see
+# intelligent typeaheads aware of the current GraphQL type schema
+# and live syntax and validation errors highlighted within the text.
+#
+# Here is an example query to fetch a list of products:
+#
+{
+  products(first: 5, channel: "default-channel") {
+    edges {
+      node {
+        id
+        name
+        description
+      }
+    }
+  }
+}
+'
+    ></div>
+    <script type="module" src="../dist/esm/index.js" crossorigin="anonymous"></script>
+    <script type="module">
+      const root = document.querySelector("#root");
+      const endpoint = root.dataset.endpoint;
+      const query = root.dataset.query;
+
+      createPlayground(root, { query, endpoint });
+    </script>
+  </body>
+</html>
