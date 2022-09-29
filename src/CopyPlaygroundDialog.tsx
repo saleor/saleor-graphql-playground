@@ -56,7 +56,7 @@ export const CopyPlaygroundDialog = ({
                 type="checkbox"
               />{" "}
               also copy headers{" "}
-              <strong className="warning">⚠️ be extra-careful not to share any secrets</strong>
+              <strong className="warning">⚠️ avoid sharing secrets.</strong>
             </label>
           </div>
           <div className="graphiql-dialog-section-caption">
