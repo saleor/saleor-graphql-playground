@@ -35,7 +35,7 @@ export const CopyPlaygroundDialog = ({
   });
 
   return (
-    <Dialog isOpen={isOpen} onDismiss={onClose}>
+    <Dialog className="graphiql-share-link-dialog" isOpen={isOpen} onDismiss={onClose}>
       <div className="graphiql-dialog-header">
         <div className="graphiql-dialog-title">Share playground</div>
         <Dialog.Close onClick={onClose} />

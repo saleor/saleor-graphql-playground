@@ -30,3 +30,11 @@ body,
 .warning {
   margin-left: 0.5em;
 }
+
+.graphiql-share-link-dialog .graphiql-dialog-header {
+  min-width: 400px;
+}
+
+.graphiql-share-link-dialog .graphiql-dialog-section > div {
+  width: 100%;
+}
