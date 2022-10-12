@@ -44,8 +44,7 @@ export const CopyPlaygroundDialog = ({
         <div>
           <div className="graphiql-dialog-section-title">Copy plaground URL</div>
           <div className="graphiql-dialog-section-caption">
-            The URL below links to a copy of this playground,{" "}
-            <strong>including the query and variables</strong> you've entered.
+            Includes queries and variables of each tab.
           </div>
           <div className="graphiql-dialog-section-caption">
             <label className="checkbox-container">
@@ -55,7 +54,7 @@ export const CopyPlaygroundDialog = ({
                 className="graphiql-button"
                 type="checkbox"
               />{" "}
-              also copy headers <strong className="warning">⚠️ avoid sharing secrets.</strong>
+              Add headers <strong className="warning">⚠️ avoid sharing secrets.</strong>
             </label>
           </div>
           <div className="graphiql-dialog-section-caption">
