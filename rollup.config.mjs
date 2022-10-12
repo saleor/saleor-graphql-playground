@@ -10,7 +10,10 @@ import replace from "@rollup/plugin-replace";
 import serve from "rollup-plugin-serve";
 import postcss from "rollup-plugin-postcss";
 
-const packageJson = require("./package.json");
+import packageJson from "./package.json" assert { type: "json" };
+
+import tailwindcss from "tailwindcss";
+import autoprefixer from "autoprefixer";
 
 const isProd = process.env.NODE_ENV === "production";
 export default [
@@ -21,11 +24,13 @@ export default [
         file: packageJson.module,
         format: "esm",
         sourcemap: true,
+        inlineDynamicImports: true,
       },
       isProd && {
         file: packageJson.main,
         format: "cjs",
         sourcemap: true,
+        inlineDynamicImports: true,
       },
 
       isProd && {
@@ -33,6 +38,7 @@ export default [
         format: "umd",
         sourcemap: true,
         name: "SaleorGraphqlPlayground",
+        inlineDynamicImports: true,
       },
     ].filter((x) => x),
     external: [],
@@ -52,11 +58,10 @@ export default [
       json(),
       postcss({
         extract: true,
-        plugins: [require("tailwindcss")(), require("autoprefixer")()],
+        plugins: [tailwindcss(), autoprefixer()],
       }),
       process.env.ROLLUP_WATCH && serve({ contentBase: "", verbose: true, open: false }),
     ].filter((x) => x),
-    inlineDynamicImports: true,
   },
   {
     input: "./dist/esm/index.d.ts",
