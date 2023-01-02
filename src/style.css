@@ -38,3 +38,7 @@ body,
 .graphiql-share-link-dialog .graphiql-dialog-section > div {
   width: 100%;
 }
+
+.docExplorerWrap {
+  height: auto !important;
+}
