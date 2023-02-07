@@ -5,7 +5,7 @@ import { useEvent } from "./useEvent";
 import { removeEmptyValues } from "./utils";
 
 export type EditorContent = Record<keyof typeof longKeysToShortKeys, string>;
-type UseGraphQLEditorContentResult = { editorContent: EditorContent } & Record<
+type UseGraphQLEditorContentResult = { readonly editorContent: EditorContent } & Record<
   `set${Capitalize<keyof EditorContent>}`,
   (newValue?: string | undefined) => void | undefined
 >;
