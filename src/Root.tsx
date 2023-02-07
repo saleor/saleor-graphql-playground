@@ -25,7 +25,6 @@ export const Root = ({
     editorContent,
     setQuery: handleEditQuery,
     setHeaders: handleEditHeaders,
-    setOperationName: handleEditOperationName,
     setVariables: handleEditVariables,
   } = useGraphQLEditorContent(defaultQuery);
 
@@ -48,7 +47,6 @@ export const Root = ({
         variables={editorContent.variables}
         onEditQuery={handleEditQuery}
         onEditHeaders={handleEditHeaders}
-        onEditOperationName={handleEditOperationName}
         onEditVariables={handleEditVariables}
         plugins={[explorerPlugin]}
         toolbar={{
