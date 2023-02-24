@@ -49,6 +49,7 @@ export const Root = ({
         onEditHeaders={handleEditHeaders}
         onEditVariables={handleEditVariables}
         plugins={[explorerPlugin]}
+        shouldPersistHeaders={true}
         toolbar={{
           additionalContent: (
             <>
