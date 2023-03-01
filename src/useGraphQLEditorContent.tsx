@@ -4,13 +4,21 @@ import { useState } from "react";
 import { useEvent } from "./useEvent";
 import { removeEmptyValues } from "./utils";
 
-export type EditorContent = Record<keyof typeof longKeysToShortKeys, string>;
+import type { TabsState } from "@graphiql/react";
+
+export type EditorContent = {
+  readonly query: string;
+  readonly variables: string;
+  readonly headers: string;
+  readonly operationName: string;
+};
+
 type UseGraphQLEditorContentResult = { readonly editorContent: EditorContent } & Record<
   `set${Capitalize<keyof EditorContent>}`,
   (newValue?: string | undefined) => void | undefined
 >;
 type ShorterEditorContent = Record<
-  typeof longKeysToShortKeys[keyof typeof longKeysToShortKeys],
+  (typeof longKeysToShortKeys)[keyof typeof longKeysToShortKeys],
   string
 >;
 
@@ -23,10 +31,10 @@ const longKeysToShortKeys = {
 
 export const editorContentToUrlFragment = (editorContent: EditorContent) => {
   const shorterContent: ShorterEditorContent = {
-    q: editorContent.query,
-    h: editorContent.headers,
-    o: editorContent.operationName,
-    v: editorContent.variables,
+    q: editorContent.query || "",
+    h: editorContent.headers || "",
+    o: editorContent.operationName || "",
+    v: editorContent.variables || "",
   };
   const stringifiedContent = JSON.stringify(removeEmptyValues(shorterContent));
 
@@ -38,14 +46,38 @@ export const editorContentToUrlFragment = (editorContent: EditorContent) => {
 
 const readFromUrl = (defaultQuery = ""): EditorContent => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
-  const editorContent: ShorterEditorContent = JSON.parse(
-    LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}"
-  );
+
+  if (editorContentFromUrl.length > 0) {
+    const editorContent: ShorterEditorContent = JSON.parse(
+      LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}"
+    );
+
+    return {
+      query: editorContent.q || defaultQuery,
+      headers: editorContent.h || "",
+      variables: editorContent.v || "",
+      operationName: editorContent.o,
+    };
+  }
+
+  const storedTabs: TabsState = JSON.parse(localStorage.getItem("graphiql:tabState") || "{}");
+
+  if (storedTabs.activeTabIndex != null) {
+    const currentTab = storedTabs.tabs[storedTabs.activeTabIndex];
+
+    return {
+      query: currentTab?.query || "",
+      headers: currentTab?.headers || "",
+      variables: currentTab?.variables || "",
+      operationName: currentTab?.operationName || "",
+    };
+  }
+
   return {
-    query: editorContent.q || defaultQuery,
-    headers: editorContent.h,
-    variables: editorContent.v,
-    operationName: editorContent.o,
+    query: defaultQuery,
+    headers: "",
+    variables: "",
+    operationName: "",
   };
 };
 const clearUrl = () => {
