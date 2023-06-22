@@ -34,6 +34,7 @@ export const Root = ({
   const explorerPlugin = useExplorerPlugin({
     query: editorContent.query,
     onEdit: handleEditQuery,
+    showAttribution: false,
   });
 
   return (

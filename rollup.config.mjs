@@ -45,7 +45,10 @@ export default [
     plugins: [
       replace({
         preventAssignment: true,
-        values: { "process.env.NODE_ENV": JSON.stringify("production") },
+        values: {
+          "process.env.NODE_ENV": JSON.stringify("production"),
+          "_globalThis$process.env.NODE_ENV": JSON.stringify("production"),
+        },
       }),
       external(),
       resolve({
@@ -64,7 +67,7 @@ export default [
     ].filter((x) => x),
   },
   {
-    input: "./dist/esm/index.d.ts",
+    input: "./dist/esm/types/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
   },
