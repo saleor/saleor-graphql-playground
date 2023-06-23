@@ -70,6 +70,7 @@ export const Root = ({
         isOpen={isCopyPlaygroundDialogOpen}
         onClose={() => setIsCopyPlaygroundDialogOpen(false)}
         editorContent={editorContent}
+        endpoint={url}
       />
     </div>
   );

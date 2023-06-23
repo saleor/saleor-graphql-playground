@@ -5,13 +5,7 @@ import { useEvent } from "./useEvent";
 import { removeEmptyValues } from "./utils";
 
 import type { TabsState } from "@graphiql/react";
-
-export type EditorContent = {
-  readonly query: string;
-  readonly variables: string;
-  readonly headers: string;
-  readonly operationName: string;
-};
+import { EditorContent } from "./types";
 
 type UseGraphQLEditorContentResult = { readonly editorContent: EditorContent } & Record<
   `set${Capitalize<keyof EditorContent>}`,
