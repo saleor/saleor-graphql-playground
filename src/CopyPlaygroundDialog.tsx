@@ -2,21 +2,26 @@ import { Button, Dialog } from "@graphiql/react";
 import { useRef } from "react";
 import { useState } from "react";
 import { useEvent } from "./useEvent";
-import { EditorContent, editorContentToUrlFragment } from "./useGraphQLEditorContent";
+import { editorContentToUrlFragment } from "./useGraphQLEditorContent";
+import { editorContentToCurl } from "./curl";
+import { EditorContent } from "./types";
 
 interface CopyPlaygroundDialogProps {
   editorContent: EditorContent;
   isOpen: boolean;
   onClose: () => void;
+  endpoint: string;
 }
 
 export const CopyPlaygroundDialog = ({
   editorContent,
   isOpen,
   onClose,
+  endpoint,
 }: CopyPlaygroundDialogProps) => {
   const [includeHeaders, setIncludeHeaders] = useState(false);
   const urlElRef = useRef<HTMLInputElement>(null);
+  const curlElRef = useRef<HTMLInputElement>(null);
 
   const editorContentToSave = {
     ...editorContent,
@@ -25,12 +30,21 @@ export const CopyPlaygroundDialog = ({
   const editorContentUrl = new URL(window.location.toString());
   editorContentUrl.hash = editorContentToUrlFragment(editorContentToSave);
 
-  const copyToClipboard = useEvent(() => {
+  const copyURLToClipboard = useEvent(() => {
     if (!urlElRef.current) {
       return;
     }
 
     urlElRef.current.select();
+    document.execCommand("copy");
+  });
+
+  const copyCurlToClipboard = useEvent(() => {
+    if (!curlElRef.current) {
+      return;
+    }
+
+    curlElRef.current.select();
     document.execCommand("copy");
   });
 
@@ -57,7 +71,7 @@ export const CopyPlaygroundDialog = ({
               Add headers <strong className="warning">⚠️ avoid sharing secrets.</strong>
             </label>
           </div>
-          <div className="graphiql-dialog-section-caption">
+          <div className="graphiql-dialog-section-caption graphiql-copy-button-section">
             <input
               aria-label="Playground URL"
               className="graphiql-button url-input"
@@ -65,10 +79,20 @@ export const CopyPlaygroundDialog = ({
               value={editorContentUrl.toString()}
               ref={urlElRef}
             />
-          </div>
-          <div className="graphiql-dialog-section-caption">
-            <Button type="button" onClick={copyToClipboard}>
+            <Button type="button" onClick={copyURLToClipboard}>
               Copy URL
+            </Button>
+          </div>
+          <div className="graphiql-dialog-section-caption graphiql-copy-button-section">
+            <input
+              aria-label="CURL URL"
+              className="graphiql-button url-input"
+              readOnly
+              value={editorContentToCurl(editorContentToSave, endpoint)}
+              ref={curlElRef}
+            />
+            <Button type="button" onClick={copyCurlToClipboard}>
+              Copy curl
             </Button>
           </div>
         </div>

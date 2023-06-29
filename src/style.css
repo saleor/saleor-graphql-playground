@@ -39,6 +39,21 @@ body,
   width: 100%;
 }
 
+.graphiql-share-link-dialog .url-input {
+  margin: 0;
+  margin-right: 1em;
+  flex: auto;
+}
+
+.graphiql-share-link-dialog button.graphiql-button {
+  flex: 1 0 6rem;
+}
+
+.graphiql-share-link-dialog .graphiql-copy-button-section {
+  display: flex;
+  margin-top: 1em;
+}
+
 .docExplorerWrap {
   height: auto !important;
 }
