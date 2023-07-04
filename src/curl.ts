@@ -20,7 +20,7 @@ export const editorContentToCurl = (editorContent: EditorContent, endpoint: stri
   ].join(" ");
 };
 
-export const curlToEditorContent = (curl: string, endpoint: string): EditorContent => {
+export const curlToEditorContent = (_curl: string, _endpoint: string): EditorContent => {
   throw new Error(`Not implemented`);
 };
 

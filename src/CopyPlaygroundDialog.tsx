@@ -49,51 +49,53 @@ export const CopyPlaygroundDialog = ({
   });
 
   return (
-    <Dialog className="graphiql-share-link-dialog" isOpen={isOpen} onDismiss={onClose}>
-      <div className="graphiql-dialog-header">
-        <div className="graphiql-dialog-title">Share playground</div>
-        <Dialog.Close onClick={onClose} />
-      </div>
-      <div className="graphiql-dialog-section">
-        <div>
-          <div className="graphiql-dialog-section-title">Copy plaground URL</div>
-          <div className="graphiql-dialog-section-caption">
-            Includes queries and variables of each tab.
-          </div>
-          <div className="graphiql-dialog-section-caption">
-            <label className="checkbox-container">
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <div className="graphiql-share-link-dialog">
+        <div className="graphiql-dialog-header">
+          <div className="graphiql-dialog-title">Share playground</div>
+          <Dialog.Close onClick={onClose} />
+        </div>
+        <div className="graphiql-dialog-section">
+          <div>
+            <div className="graphiql-dialog-section-title">Copy plaground URL</div>
+            <div className="graphiql-dialog-section-caption">
+              Includes queries and variables of each tab.
+            </div>
+            <div className="graphiql-dialog-section-caption">
+              <label className="checkbox-container">
+                <input
+                  checked={includeHeaders}
+                  onChange={(e) => setIncludeHeaders(e.currentTarget.checked)}
+                  className="graphiql-button"
+                  type="checkbox"
+                />{" "}
+                Add headers <strong className="warning">⚠️ avoid sharing secrets.</strong>
+              </label>
+            </div>
+            <div className="graphiql-dialog-section-caption graphiql-copy-button-section">
               <input
-                checked={includeHeaders}
-                onChange={(e) => setIncludeHeaders(e.currentTarget.checked)}
-                className="graphiql-button"
-                type="checkbox"
-              />{" "}
-              Add headers <strong className="warning">⚠️ avoid sharing secrets.</strong>
-            </label>
-          </div>
-          <div className="graphiql-dialog-section-caption graphiql-copy-button-section">
-            <input
-              aria-label="Playground URL"
-              className="graphiql-button url-input"
-              readOnly
-              value={editorContentUrl.toString()}
-              ref={urlElRef}
-            />
-            <Button type="button" onClick={copyURLToClipboard}>
-              Copy URL
-            </Button>
-          </div>
-          <div className="graphiql-dialog-section-caption graphiql-copy-button-section">
-            <input
-              aria-label="CURL URL"
-              className="graphiql-button url-input"
-              readOnly
-              value={editorContentToCurl(editorContentToSave, endpoint)}
-              ref={curlElRef}
-            />
-            <Button type="button" onClick={copyCurlToClipboard}>
-              Copy curl
-            </Button>
+                aria-label="Playground URL"
+                className="graphiql-button url-input"
+                readOnly
+                value={editorContentUrl.toString()}
+                ref={urlElRef}
+              />
+              <Button type="button" onClick={copyURLToClipboard}>
+                Copy URL
+              </Button>
+            </div>
+            <div className="graphiql-dialog-section-caption graphiql-copy-button-section">
+              <input
+                aria-label="CURL URL"
+                className="graphiql-button url-input"
+                readOnly
+                value={editorContentToCurl(editorContentToSave, endpoint)}
+                ref={curlElRef}
+              />
+              <Button type="button" onClick={copyCurlToClipboard}>
+                Copy curl
+              </Button>
+            </div>
           </div>
         </div>
       </div>
