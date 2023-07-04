@@ -48,6 +48,8 @@ export default [
         values: {
           "process.env.NODE_ENV": JSON.stringify("production"),
           "_globalThis$process.env.NODE_ENV": JSON.stringify("production"),
+          "globalThis.process.env.NODE_ENV": JSON.stringify("production"),
+          "globalThis.process": JSON.stringify({ env: { NODE_ENV: "production" } }),
         },
       }),
       external(),
