@@ -2,7 +2,7 @@ import "graphiql/graphiql.css";
 
 import "./style.css";
 
-import { useExplorerPlugin } from "@graphiql/plugin-explorer";
+import { explorerPlugin } from "@graphiql/plugin-explorer";
 import { ToolbarButton } from "@graphiql/react";
 import { GraphiQL } from "graphiql";
 import { useState } from "react";
@@ -11,6 +11,10 @@ import { ArrowUpOnSquareIcon } from "./ArrowUpOnSquareIcon";
 import { CopyPlaygroundDialog } from "./CopyPlaygroundDialog";
 import { useFetcher } from "./useFetcher";
 import { useGraphQLEditorContent } from "./useGraphQLEditorContent";
+
+const explorer = explorerPlugin({
+  showAttribution: false,
+});
 
 export const Root = ({
   url,
@@ -31,12 +35,6 @@ export const Root = ({
 
   const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
 
-  const explorerPlugin = useExplorerPlugin({
-    query: editorContent.query,
-    onEdit: handleEditQuery,
-    showAttribution: false,
-  });
-
   return (
     <div className="graphiql-container">
       <GraphiQL
@@ -51,7 +49,7 @@ export const Root = ({
         onEditHeaders={handleEditHeaders}
         onEditOperationName={handleEditOperationName}
         onEditVariables={handleEditVariables}
-        plugins={[explorerPlugin]}
+        plugins={[explorer]}
         shouldPersistHeaders={true}
         toolbar={{
           additionalContent: (
