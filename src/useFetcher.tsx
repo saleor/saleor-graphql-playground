@@ -11,13 +11,14 @@ export const useFetcher = (url: string) => {
       createGraphiQLFetcher({
         url,
         fetch(input, options) {
-          return fetch(input, {
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- mismatch of fetch typings
+          return fetch(input as RequestInfo, {
             ...options,
             credentials: "include",
           });
         },
       }),
-    []
+    [],
   );
 
   const [isLoading, setIsLoading] = useState(true);
@@ -30,13 +31,13 @@ export const useFetcher = (url: string) => {
           query: getIntrospectionQuery(),
           operationName: "IntrospectionQuery",
         },
-        {}
+        {},
       );
 
       Invariant(isExecutionResult(fetcherResult), `Unsupported data type returned from fetcher.`);
       Invariant(
         isIntrospectionQuery(fetcherResult.data),
-        `Invalid IntrospectionQuery returned by fetcher.`
+        `Invalid IntrospectionQuery returned by fetcher.`,
       );
       return fetcherResult.data;
     };
@@ -67,7 +68,7 @@ const isIntrospectionQuery = (val: any): val is IntrospectionQuery => {
       "mutationType" in val["__schema"] &&
       "queryType" in val["__schema"] &&
       "subscriptionType" in val["__schema"] &&
-      "types" in val["__schema"]
+      "types" in val["__schema"],
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
   );
 };
