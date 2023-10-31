@@ -16,6 +16,31 @@ const explorer = explorerPlugin({
   showAttribution: false,
 });
 
+const CopyPlaygroundToolbarButton = ({
+  url,
+  defaultQuery,
+}: {
+  readonly url: string;
+  readonly defaultQuery?: string | undefined;
+}) => {
+  const editorContent = useGraphQLEditorContent(defaultQuery);
+
+  const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
+  return (
+    <>
+      <ToolbarButton onClick={() => setIsCopyPlaygroundDialogOpen(true)} label="Share Playground">
+        <ArrowUpOnSquareIcon />
+      </ToolbarButton>
+      <CopyPlaygroundDialog
+        isOpen={isCopyPlaygroundDialogOpen}
+        onClose={() => setIsCopyPlaygroundDialogOpen(false)}
+        editorContent={editorContent}
+        endpoint={url}
+      />
+    </>
+  );
+};
+
 export const Root = ({
   url,
   defaultQuery,
@@ -25,10 +50,6 @@ export const Root = ({
 }) => {
   const { fetcher, schema } = useFetcher(url);
 
-  const editorContent = useGraphQLEditorContent(defaultQuery);
-
-  const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
-
   return (
     <div className="graphiql-container">
       <GraphiQL
@@ -37,24 +58,9 @@ export const Root = ({
         plugins={[explorer]}
         shouldPersistHeaders={true}
         toolbar={{
-          additionalContent: (
-            <>
-              <ToolbarButton
-                onClick={() => setIsCopyPlaygroundDialogOpen(true)}
-                label="Share Playground"
-              >
-                <ArrowUpOnSquareIcon />
-              </ToolbarButton>
-            </>
-          ),
+          additionalContent: <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />,
         }}
       ></GraphiQL>
-      <CopyPlaygroundDialog
-        isOpen={isCopyPlaygroundDialogOpen}
-        onClose={() => setIsCopyPlaygroundDialogOpen(false)}
-        editorContent={editorContent}
-        endpoint={url}
-      />
     </div>
   );
 };
