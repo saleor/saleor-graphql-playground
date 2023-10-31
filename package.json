@@ -58,9 +58,9 @@
   },
   "dependencies": {
     "@graphiql/plugin-explorer": "0.3.5",
-    "@graphiql/react": "0.19.4",
+    "@graphiql/react": "0.20.1",
     "@graphiql/toolkit": "0.9.1",
-    "graphiql": "3.0.6",
+    "graphiql": "3.0.7",
     "graphql": "16.8.1",
     "lz-string": "1.5.0",
     "react": "18.2.0",

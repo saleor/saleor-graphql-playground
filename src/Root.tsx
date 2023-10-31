@@ -25,13 +25,7 @@ export const Root = ({
 }) => {
   const { fetcher, schema } = useFetcher(url);
 
-  const {
-    editorContent,
-    setQuery: handleEditQuery,
-    setHeaders: handleEditHeaders,
-    setOperationName: handleEditOperationName,
-    setVariables: handleEditVariables,
-  } = useGraphQLEditorContent(defaultQuery);
+  const editorContent = useGraphQLEditorContent(defaultQuery);
 
   const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
 
@@ -40,15 +34,6 @@ export const Root = ({
       <GraphiQL
         fetcher={fetcher}
         schema={schema}
-        query={editorContent.query}
-        defaultQuery={editorContent.query}
-        headers={editorContent.headers}
-        operationName={editorContent.operationName}
-        variables={editorContent.variables}
-        onEditQuery={handleEditQuery}
-        onEditHeaders={handleEditHeaders}
-        onEditOperationName={handleEditOperationName}
-        onEditVariables={handleEditVariables}
         plugins={[explorer]}
         shouldPersistHeaders={true}
         toolbar={{

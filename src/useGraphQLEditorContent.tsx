@@ -1,16 +1,16 @@
+import {
+  useOperationsEditorState,
+  useVariablesEditorState,
+  useHeadersEditorState,
+} from "@graphiql/react";
 import LzString from "lz-string";
 import { useState } from "react";
 
-import { useEvent } from "./useEvent";
 import { removeEmptyValues } from "./utils";
 
+import type { EditorContent } from "./types";
 import type { TabsState } from "@graphiql/react";
-import { EditorContent } from "./types";
 
-type UseGraphQLEditorContentResult = { readonly editorContent: EditorContent } & Record<
-  `set${Capitalize<keyof EditorContent>}`,
-  (newValue?: string | undefined) => void | undefined
->;
 type ShorterEditorContent = Record<
   (typeof longKeysToShortKeys)[keyof typeof longKeysToShortKeys],
   string
@@ -43,7 +43,7 @@ const readFromUrl = (defaultQuery = ""): EditorContent => {
 
   if (editorContentFromUrl.length > 0) {
     const editorContent: ShorterEditorContent = JSON.parse(
-      LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}"
+      LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}",
     );
 
     return {
@@ -80,33 +80,20 @@ const clearUrl = () => {
   window.history.replaceState({}, "", url.toString());
 };
 
-export const useGraphQLEditorContent = (defaultQuery?: string): UseGraphQLEditorContentResult => {
-  const [editorContent, setEditorContent] = useState(() => {
+export const useGraphQLEditorContent = (defaultQuery?: string) => {
+  const [initialState] = useState(() => {
     const content = readFromUrl(defaultQuery);
     clearUrl();
     return content;
   });
-  const useSetEditorContentField = (fieldName: keyof EditorContent) =>
-    useEvent((newValue: string = "") => {
-      setEditorContent((prevEditorContent) => {
-        const newEditorContent = {
-          ...prevEditorContent,
-          [fieldName]: newValue,
-        };
-        return newEditorContent;
-      });
-    });
 
-  const setQuery = useSetEditorContentField("query");
-  const setHeaders = useSetEditorContentField("headers");
-  const setOperationName = useSetEditorContentField("operationName");
-  const setVariables = useSetEditorContentField("variables");
-
+  const [query] = useOperationsEditorState(initialState.query);
+  const [variables] = useVariablesEditorState(initialState.variables);
+  const [headers] = useHeadersEditorState(initialState.headers);
   return {
-    setQuery,
-    setHeaders,
-    setOperationName,
-    setVariables,
-    editorContent,
+    query,
+    variables,
+    headers,
+    operationName: "",
   };
 };
