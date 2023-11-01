@@ -78,7 +78,7 @@ export const useGraphQLEditorContent = (defaultQuery?: string) => {
         setQuery(urlData.query);
         setVariables(urlData.variables);
         setHeaders(urlData.headers);
-      } else if (context.tabs?.length > 0) {
+      } else if (context.tabs?.length > 0 && urlData?.query !== currentQuery) {
         context.addTab();
         setQuery(urlData.query);
         setVariables(urlData.variables);
