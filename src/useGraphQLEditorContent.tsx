@@ -90,7 +90,9 @@ export const useGraphQLEditorContent = (defaultQuery?: string) => {
   }, []);
 
   return {
-    ...urlData,
+    query: context?.queryEditor?.getValue() || "",
+    variables: context?.variableEditor?.getValue() || "",
+    headers: context?.headerEditor?.getValue() || "",
     operationName: "",
   };
 };
