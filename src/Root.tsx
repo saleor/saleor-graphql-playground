@@ -10,7 +10,7 @@ import { useState } from "react";
 import { ArrowUpOnSquareIcon } from "./ArrowUpOnSquareIcon";
 import { CopyPlaygroundDialog } from "./CopyPlaygroundDialog";
 import { useFetcher } from "./useFetcher";
-import { useGraphQLEditorContent } from "./useGraphQLEditorContent";
+import { readFromUrl, useGraphQLEditorContent } from "./useGraphQLEditorContent";
 
 const explorer = explorerPlugin({
   showAttribution: false,
@@ -58,8 +58,12 @@ export const Root = ({
         plugins={[explorer]}
         shouldPersistHeaders={true}
         toolbar={{
-          additionalContent: <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />,
+          // additionalContent: <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />,
+          additionalComponent: () => (
+            <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />
+          ),
         }}
+        defaultQuery={defaultQuery}
       ></GraphiQL>
     </div>
   );

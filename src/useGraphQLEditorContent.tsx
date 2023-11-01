@@ -2,9 +2,10 @@ import {
   useOperationsEditorState,
   useVariablesEditorState,
   useHeadersEditorState,
+  useEditorContext,
 } from "@graphiql/react";
 import LzString from "lz-string";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { removeEmptyValues } from "./utils";
 
@@ -38,14 +39,13 @@ export const editorContentToUrlFragment = (editorContent: EditorContent) => {
   return `saleor/${editorContentToSaveInUrl}`;
 };
 
-const readFromUrl = (defaultQuery = ""): EditorContent => {
+export const readFromUrl = (defaultQuery = ""): EditorContent | null => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
 
   if (editorContentFromUrl.length > 0) {
     const editorContent: ShorterEditorContent = JSON.parse(
       LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}",
     );
-
     return {
       query: editorContent.q || defaultQuery,
       headers: editorContent.h || "",
@@ -53,47 +53,44 @@ const readFromUrl = (defaultQuery = ""): EditorContent => {
       operationName: editorContent.o,
     };
   }
-
-  const storedTabs: TabsState = JSON.parse(localStorage.getItem("graphiql:tabState") || "{}");
-
-  if (storedTabs.activeTabIndex != null) {
-    const currentTab = storedTabs.tabs[storedTabs.activeTabIndex];
-
-    return {
-      query: currentTab?.query || "",
-      headers: currentTab?.headers || "",
-      variables: currentTab?.variables || "",
-      operationName: currentTab?.operationName || "",
-    };
-  }
-
-  return {
-    query: defaultQuery,
-    headers: "",
-    variables: "",
-    operationName: "",
-  };
+  return null;
 };
-const clearUrl = () => {
+export const clearUrl = () => {
   const url = new URL(window.location.toString());
   url.hash = "";
   window.history.replaceState({}, "", url.toString());
 };
 
 export const useGraphQLEditorContent = (defaultQuery?: string) => {
-  const [initialState] = useState(() => {
-    const content = readFromUrl(defaultQuery);
-    clearUrl();
-    return content;
-  });
+  const [currentQuery, setQuery] = useOperationsEditorState();
+  const [, setVariables] = useVariablesEditorState();
+  const [, setHeaders] = useHeadersEditorState();
+  const [isInitialized, setIsInitialized] = useState(false);
+  const context = useEditorContext();
+  const urlData = readFromUrl(defaultQuery);
+  useEffect(() => {
+    if (!isInitialized && context?.queryEditor && urlData) {
+      if (
+        // if the current editor is currently empty or contains the exact default query (save whitespace)
+        currentQuery?.trim().length === 0 ||
+        currentQuery?.trim() === defaultQuery?.trim()
+      ) {
+        setQuery(urlData.query);
+        setVariables(urlData.variables);
+        setHeaders(urlData.headers);
+      } else if (context.tabs?.length > 0) {
+        context.addTab();
+        setQuery(urlData.query);
+        setVariables(urlData.variables);
+        setHeaders(urlData.headers);
+      }
+      setIsInitialized(true);
+      clearUrl();
+    }
+  }, []);
 
-  const [query] = useOperationsEditorState(initialState.query);
-  const [variables] = useVariablesEditorState(initialState.variables);
-  const [headers] = useHeadersEditorState(initialState.headers);
   return {
-    query,
-    variables,
-    headers,
+    ...urlData,
     operationName: "",
   };
 };
