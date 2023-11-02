@@ -1,5 +1,6 @@
 import "graphiql/graphiql.css";
-
+// import custom css to fix header, close icon, and input fields, a11y fixes coming soon
+import "@graphiql/plugin-explorer/dist/style.css";
 import "./style.css";
 
 import { explorerPlugin } from "@graphiql/plugin-explorer";
