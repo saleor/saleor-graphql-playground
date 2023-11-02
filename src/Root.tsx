@@ -10,7 +10,7 @@ import { useState } from "react";
 import { ArrowUpOnSquareIcon } from "./ArrowUpOnSquareIcon";
 import { CopyPlaygroundDialog } from "./CopyPlaygroundDialog";
 import { useFetcher } from "./useFetcher";
-import { readFromUrl, useGraphQLEditorContent } from "./useGraphQLEditorContent";
+import { useGraphQLEditorContent } from "./useGraphQLEditorContent";
 
 const explorer = explorerPlugin({
   showAttribution: false,
@@ -18,12 +18,11 @@ const explorer = explorerPlugin({
 
 const CopyPlaygroundToolbarButton = ({
   url,
-  defaultQuery,
 }: {
   readonly url: string;
   readonly defaultQuery?: string | undefined;
 }) => {
-  const editorContent = useGraphQLEditorContent(defaultQuery);
+  const editorContent = useGraphQLEditorContent();
 
   const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
   return (
@@ -59,11 +58,9 @@ export const Root = ({
         shouldPersistHeaders={true}
         toolbar={{
           // additionalContent: <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />,
-          additionalComponent: () => (
-            <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />
-          ),
+          additionalComponent: () => <CopyPlaygroundToolbarButton url={url} />,
         }}
-        defaultQuery={defaultQuery}
+        defaultQuery={defaultQuery ?? ""}
       ></GraphiQL>
     </div>
   );

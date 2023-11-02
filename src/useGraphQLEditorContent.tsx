@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { removeEmptyValues } from "./utils";
 
 import type { EditorContent } from "./types";
-import type { TabsState } from "@graphiql/react";
 
 type ShorterEditorContent = Record<
   (typeof longKeysToShortKeys)[keyof typeof longKeysToShortKeys],
@@ -39,7 +38,7 @@ export const editorContentToUrlFragment = (editorContent: EditorContent) => {
   return `saleor/${editorContentToSaveInUrl}`;
 };
 
-export const readFromUrl = (defaultQuery = ""): EditorContent | null => {
+const readFromUrl = (): EditorContent | null => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
 
   if (editorContentFromUrl.length > 0) {
@@ -47,7 +46,7 @@ export const readFromUrl = (defaultQuery = ""): EditorContent | null => {
       LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}",
     );
     return {
-      query: editorContent.q || defaultQuery,
+      query: editorContent.q,
       headers: editorContent.h || "",
       variables: editorContent.v || "",
       operationName: editorContent.o,
@@ -55,25 +54,24 @@ export const readFromUrl = (defaultQuery = ""): EditorContent | null => {
   }
   return null;
 };
-export const clearUrl = () => {
+const clearUrl = () => {
   const url = new URL(window.location.toString());
   url.hash = "";
   window.history.replaceState({}, "", url.toString());
 };
 
-export const useGraphQLEditorContent = (defaultQuery?: string) => {
+export const useGraphQLEditorContent = () => {
   const [currentQuery, setQuery] = useOperationsEditorState();
   const [, setVariables] = useVariablesEditorState();
   const [, setHeaders] = useHeadersEditorState();
   const [isInitialized, setIsInitialized] = useState(false);
   const context = useEditorContext();
-  const urlData = readFromUrl(defaultQuery);
+  const urlData = readFromUrl();
   useEffect(() => {
     if (!isInitialized && context?.queryEditor && urlData) {
       if (
         // if the current editor is currently empty or contains the exact default query (save whitespace)
-        currentQuery?.trim().length === 0 ||
-        currentQuery?.trim() === defaultQuery?.trim()
+        currentQuery?.trim().length === 0
       ) {
         setQuery(urlData.query);
         setVariables(urlData.variables);
