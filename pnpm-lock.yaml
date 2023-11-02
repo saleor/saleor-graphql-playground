@@ -9,17 +9,17 @@ overrides:
 
 dependencies:
   '@graphiql/plugin-explorer':
-    specifier: 1.0.2-canary-5c561479.0
-    version: 1.0.2-canary-5c561479.0(@graphiql/react@0.20.2-canary-5c561479.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 1.0.2
+    version: 1.0.2(@graphiql/react@0.20.2)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@graphiql/react':
-    specifier: 0.20.2-canary-5c561479.0
-    version: 0.20.2-canary-5c561479.0(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.20.2
+    version: 0.20.2(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   '@graphiql/toolkit':
     specifier: 0.9.1
     version: 0.9.1(@types/node@20.8.8)(graphql@16.8.1)
   graphiql:
-    specifier: 3.0.9-canary-5c561479.0
-    version: 3.0.9-canary-5c561479.0(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 3.0.9
+    version: 3.0.9(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
   graphql:
     specifier: 16.8.1
     version: 16.8.1
@@ -271,23 +271,23 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: false
 
-  /@graphiql/plugin-explorer@1.0.2-canary-5c561479.0(@graphiql/react@0.20.2-canary-5c561479.0)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-075ApySGHCxQxVI4ho7SGhTLuwn06Tf4fPXJHUU9QN+RgDaUIkzVDxNrFOCl3Tr3UmwwwbFlj3VSzxwEfRVDKg==}
+  /@graphiql/plugin-explorer@1.0.2(@graphiql/react@0.20.2)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-9j+kg2UjtLZD5EBmGjeWHkoVVxtbShYg2DzbUVebibnZYZM/iMBEF4vaccXJIAm5KaomIPLx0aoNs4LbODyc3Q==}
     peerDependencies:
-      '@graphiql/react': ^0.20.2-canary-5c561479.0
+      '@graphiql/react': ^0.20.2
       graphql: ^15.5.0 || ^16.0.0
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
     dependencies:
-      '@graphiql/react': 0.20.2-canary-5c561479.0(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      '@graphiql/react': 0.20.2(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       graphiql-explorer: 0.9.0(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       graphql: 16.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@graphiql/react@0.20.2-canary-5c561479.0(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-gkOeQeFkpgT6PFBgTWHnR7BDdsP6K/3H5PF96FMJYhc/DvTd3KdCeNFWbxUzstmOMt267j6O3CeQtAfQ2XWInw==}
+  /@graphiql/react@0.20.2(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-/crAUlM+4iVHyNHVdiZjsTEqfMXBHfjEvrMwCwTVig6YXmCAVuaxqkD7NlDtrrPQArLGkABmf1Nw7ObRpby5lg==}
     peerDependencies:
       graphql: ^15.5.0 || ^16.0.0
       react: ^16.8.0 || ^17 || ^18
@@ -3639,14 +3639,14 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /graphiql@3.0.9-canary-5c561479.0(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-UoS5eJa37Oxx2eDoLykK8aaf6urxN2Ky68WbGyjkdNQZDbVI/RbXxBQRsh1JHKXTUUitlLaLdilI+6RKVpiXQA==}
+  /graphiql@3.0.9(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-xl9yEr6U4Wc3wmqvtP2sV2a3zGQkqrAMtU90x45QnpNT9MBgBn38HD1Yg5jExXxER65xmYWlGoYdAiD8v/dbEw==}
     peerDependencies:
       graphql: ^15.5.0 || ^16.0.0
       react: ^16.8.0 || ^17 || ^18
       react-dom: ^16.8.0 || ^17 || ^18
     dependencies:
-      '@graphiql/react': 0.20.2-canary-5c561479.0(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
+      '@graphiql/react': 0.20.2(@codemirror/language@6.0.0)(@types/node@20.8.8)(@types/react-dom@18.2.14)(@types/react@18.2.31)(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
       '@graphiql/toolkit': 0.9.1(@types/node@20.8.8)(graphql@16.8.1)
       graphql: 16.8.1
       graphql-language-service: 5.2.0(graphql@16.8.1)

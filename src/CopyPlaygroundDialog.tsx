@@ -1,17 +1,16 @@
 import { Button, Dialog } from "@graphiql/react";
-import { useRef, useState } from "react";
-
-import { editorContentToCurl } from "./curl";
+import { useRef } from "react";
+import { useState } from "react";
 import { useEvent } from "./useEvent";
 import { editorContentToUrlFragment } from "./useGraphQLEditorContent";
-
-import type { EditorContent } from "./types";
+import { editorContentToCurl } from "./curl";
+import { EditorContent } from "./types";
 
 interface CopyPlaygroundDialogProps {
-  readonly editorContent: EditorContent;
-  readonly isOpen: boolean;
-  readonly onClose: () => void;
-  readonly endpoint: string;
+  editorContent: EditorContent;
+  isOpen: boolean;
+  onClose: () => void;
+  endpoint: string;
 }
 
 export const CopyPlaygroundDialog = ({
