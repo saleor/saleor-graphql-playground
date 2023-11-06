@@ -1,16 +1,16 @@
+import {
+  useOperationsEditorState,
+  useVariablesEditorState,
+  useHeadersEditorState,
+  useEditorContext,
+} from "@graphiql/react";
 import LzString from "lz-string";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useEvent } from "./useEvent";
 import { removeEmptyValues } from "./utils";
 
-import type { TabsState } from "@graphiql/react";
-import { EditorContent } from "./types";
+import type { EditorContent } from "./types";
 
-type UseGraphQLEditorContentResult = { readonly editorContent: EditorContent } & Record<
-  `set${Capitalize<keyof EditorContent>}`,
-  (newValue?: string | undefined) => void | undefined
->;
 type ShorterEditorContent = Record<
   (typeof longKeysToShortKeys)[keyof typeof longKeysToShortKeys],
   string
@@ -38,41 +38,21 @@ export const editorContentToUrlFragment = (editorContent: EditorContent) => {
   return `saleor/${editorContentToSaveInUrl}`;
 };
 
-const readFromUrl = (defaultQuery = ""): EditorContent => {
+const readFromUrl = (): EditorContent | null => {
   const editorContentFromUrl = window.location.hash.replace(/^#saleor\//, "");
 
   if (editorContentFromUrl.length > 0) {
     const editorContent: ShorterEditorContent = JSON.parse(
-      LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}"
+      LzString.decompressFromEncodedURIComponent(editorContentFromUrl) || "{}",
     );
-
     return {
-      query: editorContent.q || defaultQuery,
+      query: editorContent.q,
       headers: editorContent.h || "",
       variables: editorContent.v || "",
       operationName: editorContent.o,
     };
   }
-
-  const storedTabs: TabsState = JSON.parse(localStorage.getItem("graphiql:tabState") || "{}");
-
-  if (storedTabs.activeTabIndex != null) {
-    const currentTab = storedTabs.tabs[storedTabs.activeTabIndex];
-
-    return {
-      query: currentTab?.query || "",
-      headers: currentTab?.headers || "",
-      variables: currentTab?.variables || "",
-      operationName: currentTab?.operationName || "",
-    };
-  }
-
-  return {
-    query: defaultQuery,
-    headers: "",
-    variables: "",
-    operationName: "",
-  };
+  return null;
 };
 const clearUrl = () => {
   const url = new URL(window.location.toString());
@@ -80,33 +60,37 @@ const clearUrl = () => {
   window.history.replaceState({}, "", url.toString());
 };
 
-export const useGraphQLEditorContent = (defaultQuery?: string): UseGraphQLEditorContentResult => {
-  const [editorContent, setEditorContent] = useState(() => {
-    const content = readFromUrl(defaultQuery);
-    clearUrl();
-    return content;
-  });
-  const useSetEditorContentField = (fieldName: keyof EditorContent) =>
-    useEvent((newValue: string = "") => {
-      setEditorContent((prevEditorContent) => {
-        const newEditorContent = {
-          ...prevEditorContent,
-          [fieldName]: newValue,
-        };
-        return newEditorContent;
-      });
-    });
-
-  const setQuery = useSetEditorContentField("query");
-  const setHeaders = useSetEditorContentField("headers");
-  const setOperationName = useSetEditorContentField("operationName");
-  const setVariables = useSetEditorContentField("variables");
+export const useGraphQLEditorContent = () => {
+  const [currentQuery, setQuery] = useOperationsEditorState();
+  const [, setVariables] = useVariablesEditorState();
+  const [, setHeaders] = useHeadersEditorState();
+  const [isInitialized, setIsInitialized] = useState(false);
+  const context = useEditorContext();
+  const urlData = readFromUrl();
+  useEffect(() => {
+    if (!isInitialized && context?.queryEditor && urlData) {
+      if (
+        // if the current editor is currently empty or contains the exact default query (save whitespace)
+        currentQuery?.trim().length === 0
+      ) {
+        setQuery(urlData.query);
+        setVariables(urlData.variables);
+        setHeaders(urlData.headers);
+      } else if (context.tabs?.length > 0 && urlData?.query !== currentQuery) {
+        context.addTab();
+        setQuery(urlData.query);
+        setVariables(urlData.variables);
+        setHeaders(urlData.headers);
+      }
+      setIsInitialized(true);
+      clearUrl();
+    }
+  }, []);
 
   return {
-    setQuery,
-    setHeaders,
-    setOperationName,
-    setVariables,
-    editorContent,
+    query: context?.queryEditor?.getValue() || "",
+    variables: context?.variableEditor?.getValue() || "",
+    headers: context?.headerEditor?.getValue() || "",
+    operationName: "",
   };
 };

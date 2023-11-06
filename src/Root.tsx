@@ -1,5 +1,6 @@
 import "graphiql/graphiql.css";
-
+// import custom css to fix header, close icon, and input fields, a11y fixes coming soon
+import "@graphiql/plugin-explorer/dist/style.css";
 import "./style.css";
 
 import { explorerPlugin } from "@graphiql/plugin-explorer";
@@ -16,6 +17,30 @@ const explorer = explorerPlugin({
   showAttribution: false,
 });
 
+const CopyPlaygroundToolbarButton = ({
+  url,
+}: {
+  readonly url: string;
+  readonly defaultQuery?: string | undefined;
+}) => {
+  const editorContent = useGraphQLEditorContent();
+
+  const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
+  return (
+    <>
+      <ToolbarButton onClick={() => setIsCopyPlaygroundDialogOpen(true)} label="Share Playground">
+        <ArrowUpOnSquareIcon />
+      </ToolbarButton>
+      <CopyPlaygroundDialog
+        isOpen={isCopyPlaygroundDialogOpen}
+        onClose={() => setIsCopyPlaygroundDialogOpen(false)}
+        editorContent={editorContent}
+        endpoint={url}
+      />
+    </>
+  );
+};
+
 export const Root = ({
   url,
   defaultQuery,
@@ -25,51 +50,19 @@ export const Root = ({
 }) => {
   const { fetcher, schema } = useFetcher(url);
 
-  const {
-    editorContent,
-    setQuery: handleEditQuery,
-    setHeaders: handleEditHeaders,
-    setOperationName: handleEditOperationName,
-    setVariables: handleEditVariables,
-  } = useGraphQLEditorContent(defaultQuery);
-
-  const [isCopyPlaygroundDialogOpen, setIsCopyPlaygroundDialogOpen] = useState(false);
-
   return (
     <div className="graphiql-container">
       <GraphiQL
         fetcher={fetcher}
         schema={schema}
-        query={editorContent.query}
-        defaultQuery={editorContent.query}
-        headers={editorContent.headers}
-        operationName={editorContent.operationName}
-        variables={editorContent.variables}
-        onEditQuery={handleEditQuery}
-        onEditHeaders={handleEditHeaders}
-        onEditOperationName={handleEditOperationName}
-        onEditVariables={handleEditVariables}
         plugins={[explorer]}
         shouldPersistHeaders={true}
         toolbar={{
-          additionalContent: (
-            <>
-              <ToolbarButton
-                onClick={() => setIsCopyPlaygroundDialogOpen(true)}
-                label="Share Playground"
-              >
-                <ArrowUpOnSquareIcon />
-              </ToolbarButton>
-            </>
-          ),
+          // additionalContent: <CopyPlaygroundToolbarButton url={url} defaultQuery={defaultQuery} />,
+          additionalComponent: () => <CopyPlaygroundToolbarButton url={url} />,
         }}
+        defaultQuery={defaultQuery ?? ""}
       ></GraphiQL>
-      <CopyPlaygroundDialog
-        isOpen={isCopyPlaygroundDialogOpen}
-        onClose={() => setIsCopyPlaygroundDialogOpen(false)}
-        editorContent={editorContent}
-        endpoint={url}
-      />
     </div>
   );
 };
