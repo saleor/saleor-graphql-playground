@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@types/node': 20.8.8
+  '@types/node': 20.9.0
 
 dependencies:
   '@graphiql/plugin-explorer':
@@ -4586,7 +4586,7 @@ packages:
     resolution: {integrity: sha512-2BNGOimxEz5hmjUG2FwoxCt5HN7BXdaWyFqEwxPTrJzVdABtrL4TiHTcsWSFAxPQ/tOnEaQEJh3qWq71QRMY+w==}
     engines: {node: '>=13'}
     peerDependencies:
-      '@types/node': 20.8.8
+      '@types/node': 20.9.0
     peerDependenciesMeta:
       '@types/node':
         optional: true
